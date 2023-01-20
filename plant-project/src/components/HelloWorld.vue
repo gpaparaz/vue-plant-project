@@ -4,43 +4,39 @@ import { ref } from 'vue'
 import { Plant } from '../objects/plant'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
+import PlantsList from '../views/PlantsList.vue'
 
 export default {
+  components: [PlantsList],
   setup() {
-
     function openForm() {
-      console.log('form aperto')
+      console.log("form aperto");
     }
-
-    const display = ref(false)
-
+    const display = ref(false);
     const openBasic = () => {
       display.value = true;
     };
-
     const pianta = new Plant();
-    const specie = ref('')
-    const varieta = ref('')
-    const quantita = ref('')
-
+    const specie = ref("");
+    const varieta = ref("");
+    const quantita = ref("");
     function submit() {
       pianta.setSpecie(specie.value);
       pianta.setVarieta(varieta.value);
       pianta.setQuantita(quantita.value);
-
-      context.emit('closeDialog');
+      context.emit("closeDialog");
     }
-
-
     return {
       openForm,
       display,
       openBasic,
       submit,
-      specie, varieta, quantita
-    }
-  }
-
+      specie,
+      varieta,
+      quantita
+    };
+  },
+  components: { PlantsList }
 }
 
 </script>
@@ -67,6 +63,7 @@ export default {
 
     <div class="col-6">
       <p>pianta inserita</p>
+      <PlantsList />
     </div>
   </div>
 
