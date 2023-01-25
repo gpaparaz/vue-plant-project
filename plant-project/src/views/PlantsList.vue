@@ -1,6 +1,6 @@
 <script>
 
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 let id = 0;
 
 export default {
@@ -23,15 +23,22 @@ export default {
             }
         ])
 
-        const fullPlant = computed(() => {
+        // const fullPlant = computed(() => {
+        //     if (props.plantSpecie !== '') {
+        //         dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
+        //     }
+        //     return props.plantSpecie + ' ' + props.plantVarieta + ' ' + props.plantQuantita;
+        // })
+
+        watch(props, (newValue) => {
             if (props.plantSpecie !== '') {
                 dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
             }
-            return props.plantSpecie + ' ' + props.plantVarieta + ' ' + props.plantQuantita;
         })
 
         return {
-            dataToShow, fullPlant
+            dataToShow,
+            // fullPlant
         }
     }
 }
@@ -53,7 +60,6 @@ export default {
         </template>
     </table>
 
-    <p class="hidden">Pianta inserita: {{ fullPlant }}</p>
 </template>
 
 <style scoped>
