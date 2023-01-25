@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import AddPlant from './components/AddPlant.vue'
 </script>
 
 <template>

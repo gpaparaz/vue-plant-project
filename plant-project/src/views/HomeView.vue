@@ -1,9 +1,9 @@
 <script setup>
-import HelloWorld from '../components/HelloWorld.vue';
+import AddPlant from '../components/AddPlant.vue';
 </script>
 
 <template>
   <h1>This is home view page</h1>
-  <HelloWorld>
-  </HelloWorld>
+  <AddPlant>
+  </AddPlant>
 </template>

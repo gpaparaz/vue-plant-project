@@ -53,7 +53,7 @@ export default {
 </script>
 
 <template>
-  <h2>This is hello world vue page</h2>
+  <h2>This is AddPlant vue page</h2>
 
   <div class="grid">
     <div class="col-6">
