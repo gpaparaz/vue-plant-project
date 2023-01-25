@@ -8,7 +8,7 @@ let id = 0;
 export default {
     props: ['plantVarieta', 'plantSpecie', 'plantQuantita'],
 
-    setup(props) {
+    setup(props, context) {
 
         const searchedText = ref('')
 
@@ -29,13 +29,6 @@ export default {
             }
         ])
 
-        // const fullPlant = computed(() => {
-        //     if (props.plantSpecie !== '') {
-        //         dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
-        //     }
-        //     return props.plantSpecie + ' ' + props.plantVarieta + ' ' + props.plantQuantita;
-        // })
-
         watch(props, (newValue) => {
             if (newValue.plantSpecie !== '') {
                 dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
@@ -52,9 +45,13 @@ export default {
             dataToShow.value = notFilteredData;
         }
 
+        function showPlantDetailPage() {
+            context.emit('showDetails');
+            // this.win.Vue.config.globalProperties.emitter.emit('changePage')
+        }
+
         return {
-            dataToShow, searchedText, search, reset
-            // fullPlant
+            dataToShow, searchedText, search, reset, showPlantDetailPage
         }
     }
 }
@@ -76,12 +73,14 @@ export default {
             <th>Specie</th>
             <th>Varietà</th>
             <th>Quantità</th>
+            <th>Azione</th>
         </tr>
         <template v-for="item in dataToShow">
             <tr>
                 <td>{{ item.specie }}</td>
                 <td>{{ item.varieta }}</td>
                 <td>{{ item.quantita }}</td>
+                <td><button @click="showPlantDetailPage">Dettagli</button></td>
             </tr>
         </template>
     </table>

@@ -4,17 +4,21 @@ import { ref } from 'vue'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import PlantsList from '../views/PlantsList.vue'
+import PlantDetail from './PlantDetail.vue'
 
 export default {
-  components: [PlantsList],
+  components: [PlantsList, PlantDetail],
+
   setup() {
     function openForm() {
       console.log("form aperto");
     }
+
     const display = ref(false);
     const openBasic = () => {
       display.value = true;
     };
+
     const specie = ref("");
     const varieta = ref("");
     const quantita = ref("");
@@ -34,6 +38,10 @@ export default {
       varieta.value = null;
       quantita.value = null;
     }
+
+    const showPlantList = ref(true)
+
+
     return {
       openForm,
       display,
@@ -44,10 +52,11 @@ export default {
       quantita,
       parentQuantita,
       parentSpecie,
-      parentVarieta
-    };
+      parentVarieta,
+      showPlantList
+    }
   },
-  components: { PlantsList }
+  components: { PlantsList, PlantDetail }
 }
 
 </script>
@@ -81,7 +90,9 @@ export default {
     </div>
 
     <div class="col-6">
-      <PlantsList :plantVarieta="parentVarieta" :plantSpecie="parentSpecie" :plantQuantita="parentQuantita" />
+      <PlantsList v-if="showPlantList" :plantVarieta="parentVarieta" :plantSpecie="parentSpecie"
+        :plantQuantita="parentQuantita" @showDetails="showPlantList = false" />
+      <PlantDetail v-else />
     </div>
   </div>
 
