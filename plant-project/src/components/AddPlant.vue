@@ -7,9 +7,8 @@ import PlantsList from '../views/PlantsList.vue'
 import PlantDetail from './PlantDetail.vue'
 
 export default {
-  components: [PlantsList, PlantDetail],
 
-  setup() {
+  setup(props, context) {
     function openForm() {
       console.log("form aperto");
     }
@@ -41,6 +40,14 @@ export default {
 
     const showPlantList = ref(true)
 
+    let speciePerDettaglio = ''
+    let varietàPerDettaglio = ''
+
+    function processaRicezioneDaChild(specieRicevuta, varietaRicevuta) {
+      showPlantList.value = false;
+      speciePerDettaglio = specieRicevuta;
+      varietàPerDettaglio = varietaRicevuta;
+    }
 
     return {
       openForm,
@@ -53,7 +60,8 @@ export default {
       parentQuantita,
       parentSpecie,
       parentVarieta,
-      showPlantList
+      showPlantList,
+      processaRicezioneDaChild
     }
   },
   components: { PlantsList, PlantDetail }
@@ -91,8 +99,9 @@ export default {
 
     <div class="col-6">
       <PlantsList v-if="showPlantList" :plantVarieta="parentVarieta" :plantSpecie="parentSpecie"
-        :plantQuantita="parentQuantita" @showDetails="showPlantList = false" />
-      <PlantDetail v-else />
+        :plantQuantita="parentQuantita" @showDetails="processaRicezioneDaChild" />
+
+      <PlantDetail v-else @showList="" />
     </div>
   </div>
 

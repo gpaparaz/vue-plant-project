@@ -45,9 +45,8 @@ export default {
             dataToShow.value = notFilteredData;
         }
 
-        function showPlantDetailPage() {
-            context.emit('showDetails');
-            // this.win.Vue.config.globalProperties.emitter.emit('changePage')
+        function showPlantDetailPage(emitSpecie, emitVarieta) {
+            context.emit('showDetails', emitSpecie, emitVarieta);
         }
 
         return {
@@ -80,7 +79,7 @@ export default {
                 <td>{{ item.specie }}</td>
                 <td>{{ item.varieta }}</td>
                 <td>{{ item.quantita }}</td>
-                <td><button @click="showPlantDetailPage">Dettagli</button></td>
+                <td><button @click="showPlantDetailPage(item.specie, item.varieta)">Dettagli</button></td>
             </tr>
         </template>
     </table>
