@@ -1,33 +1,41 @@
 <script>
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+let id = 0;
 
 export default {
-    setup() {
+    props: ['plantVarieta', 'plantSpecie', 'plantQuantita'],
 
-        const dataToShow = [
+    setup(props) {
+
+        const dataToShow = ref([
             {
-                id: 0, specie: 'Magnolia', varieta: 'Bianca', quantita: 3
+                id: id++, specie: 'Magnolia', varieta: 'Bianca', quantita: 3
             },
             {
-                id: 1, specie: 'Glicine', varieta: 'Rosa', quantita: 2
+                id: id++, specie: 'Glicine', varieta: 'Rosa', quantita: 2
             },
             {
-                id: 2, specie: 'Glicine', varieta: 'Viola', quantita: 4
+                id: id++, specie: 'Glicine', varieta: 'Viola', quantita: 4
             },
             {
-                id: 3, specie: 'Edera', varieta: 'Canadese', quantita: 2
+                id: id++, specie: 'Edera', varieta: 'Canadese', quantita: 2
             }
-        ]
-        const show = ref(dataToShow)
+        ])
 
+
+        const fullPlant = computed(() => {
+            if (props.plantSpecie !== '') {
+                dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
+            }
+            return props.plantSpecie + ' ' + props.plantVarieta + ' ' + props.plantQuantita;
+        })
 
         return {
-            show
+            dataToShow, fullPlant
         }
     }
 }
-
 </script>
 
 <template>
@@ -37,16 +45,16 @@ export default {
             <th>Varietà</th>
             <th>Quantità</th>
         </tr>
-        <template v-for="item in show">
+        <template v-for="item in dataToShow">
             <tr>
                 <td>{{ item.specie }}</td>
                 <td>{{ item.varieta }}</td>
                 <td>{{ item.quantita }}</td>
             </tr>
-
-
         </template>
     </table>
+
+    <p class="hidden">Pianta inserita: {{ fullPlant }}</p>
 </template>
 
 <style scoped>

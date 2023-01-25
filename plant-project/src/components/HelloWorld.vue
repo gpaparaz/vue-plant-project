@@ -19,9 +19,16 @@ export default {
     const varieta = ref("");
     const quantita = ref("");
 
+    const parentVarieta = ref('')
+    const parentSpecie = ref('')
+    const parentQuantita = ref('')
+
     function submit() {
       display.value = false;
-      console.log("specie " + specie.value + " varietà " + varieta.value)
+      parentSpecie.value = specie.value;
+      parentVarieta.value = varieta.value;
+      parentQuantita.value = quantita.value;
+      // console.log("specie " + specie.value + " varietà " + varieta.value)
     }
     return {
       openForm,
@@ -30,7 +37,10 @@ export default {
       submit,
       specie,
       varieta,
-      quantita
+      quantita,
+      parentQuantita,
+      parentSpecie,
+      parentVarieta
     };
   },
   components: { PlantsList }
@@ -68,7 +78,7 @@ export default {
 
     <div class="col-6">
       <p>pianta inserita</p>
-      <PlantsList />
+      <PlantsList :plantVarieta="parentVarieta" :plantSpecie="parentSpecie" :plantQuantita="parentQuantita" />
     </div>
   </div>
 
