@@ -28,7 +28,11 @@ export default {
       parentSpecie.value = specie.value;
       parentVarieta.value = varieta.value;
       parentQuantita.value = quantita.value;
-      // console.log("specie " + specie.value + " varietà " + varieta.value)
+
+      // faccio pulizia dei miei input text perchè altrimenti quando riapro la dialog trovo gli stessi dati di prima
+      specie.value = null;
+      varieta.value = null;
+      quantita.value = null;
     }
     return {
       openForm,

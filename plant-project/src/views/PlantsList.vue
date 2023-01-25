@@ -31,7 +31,7 @@ export default {
         // })
 
         watch(props, (newValue) => {
-            if (props.plantSpecie !== '') {
+            if (newValue.plantSpecie !== '') {
                 dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
             }
         })
