@@ -23,7 +23,6 @@ export default {
             }
         ])
 
-
         const fullPlant = computed(() => {
             if (props.plantSpecie !== '') {
                 dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
