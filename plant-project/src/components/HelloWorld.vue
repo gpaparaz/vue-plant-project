@@ -81,7 +81,6 @@ export default {
     </div>
 
     <div class="col-6">
-      <p>pianta inserita</p>
       <PlantsList :plantVarieta="parentVarieta" :plantSpecie="parentSpecie" :plantQuantita="parentQuantita" />
     </div>
   </div>
