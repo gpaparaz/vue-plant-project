@@ -8,7 +8,7 @@ import AddPlant from './components/AddPlant.vue'
     <div class="wrapper">
 
 
-      <nav>
+      <nav class="grid align-items-center pl-4">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
@@ -20,5 +20,9 @@ import AddPlant from './components/AddPlant.vue'
 </template>
 
 <style scoped>
-
+nav {
+  background-color: darkslategray;
+  /* background-color: darkgreen; */
+  height: 8vh;
+}
 </style>
