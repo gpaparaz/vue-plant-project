@@ -40,13 +40,20 @@ export default {
 
     const showPlantList = ref(true)
 
-    let speciePerDettaglio = ''
-    let varietàPerDettaglio = ''
+    let speciePerDettaglio = ref('')
+    let varietaPerDettaglio = ref('')
+    // let dettaglio = ref({ id: '', specie: '', varieta: '' });
 
-    function processaRicezioneDaChild(specieRicevuta, varietaRicevuta) {
-      showPlantList.value = false;
-      speciePerDettaglio = specieRicevuta;
-      varietàPerDettaglio = varietaRicevuta;
+    //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
+    //setta i campi ricevuti per inviarli poi a PlantDetail
+    function processaRicezioneDaPlantList(specieRicevuta, varietaRicevuta) {
+      speciePerDettaglio.value = specieRicevuta;
+      varietaPerDettaglio.value = varietaRicevuta;
+      if (speciePerDettaglio !== undefined && speciePerDettaglio !== '')
+        showPlantList.value = false;
+
+      // dettaglio.value = { specie: specieRicevuta, varieta: varietaRicevuta };
+      console.log('che cosa sto inviando? specie: ' + speciePerDettaglio + ' varietà: ' + varietaPerDettaglio)
     }
 
     return {
@@ -61,7 +68,8 @@ export default {
       parentSpecie,
       parentVarieta,
       showPlantList,
-      processaRicezioneDaChild
+      processaRicezioneDaPlantList,
+      speciePerDettaglio, varietaPerDettaglio
     }
   },
   components: { PlantsList, PlantDetail }
@@ -99,9 +107,10 @@ export default {
 
     <div class="col-6">
       <PlantsList v-if="showPlantList" :plantVarieta="parentVarieta" :plantSpecie="parentSpecie"
-        :plantQuantita="parentQuantita" @showDetails="processaRicezioneDaChild" />
+        :plantQuantita="parentQuantita" @showDetails="processaRicezioneDaPlantList" />
 
-      <PlantDetail v-else @showList="" />
+      <PlantDetail v-else @showList="showPlantList = true" :specieDettaglio="speciePerDettaglio"
+        :varietaDettaglio="varietaPerDettaglio" />
     </div>
   </div>
 

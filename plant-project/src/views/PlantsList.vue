@@ -8,6 +8,8 @@ let id = 0;
 export default {
     props: ['plantVarieta', 'plantSpecie', 'plantQuantita'],
 
+    emits: ['showDetails'],
+
     setup(props, context) {
 
         const searchedText = ref('')
@@ -45,6 +47,7 @@ export default {
             dataToShow.value = notFilteredData;
         }
 
+        //prendi i campi nel row ed inviali al parent AddPlant
         function showPlantDetailPage(emitSpecie, emitVarieta) {
             context.emit('showDetails', emitSpecie, emitVarieta);
         }
@@ -52,6 +55,7 @@ export default {
         return {
             dataToShow, searchedText, search, reset, showPlantDetailPage
         }
+
     }
 }
 </script>
