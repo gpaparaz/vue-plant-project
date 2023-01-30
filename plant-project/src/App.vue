@@ -19,10 +19,21 @@ import AddPlant from './components/AddPlant.vue'
   <RouterView />
 </template>
 
-<style scoped>
+<style>
 nav {
   background-color: darkslategray;
   /* background-color: darkgreen; */
   height: 8vh;
+}
+
+h2 {
+  color: rebeccapurple;
+}
+
+button {
+  background-color: pink;
+  border: 2px solid palevioletred;
+  border-radius: 5px;
+  min-height: 30px;
 }
 </style>

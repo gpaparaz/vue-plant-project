@@ -107,11 +107,4 @@ td {
     border-left: 1px solid palevioletred;
     border-right: 1px solid palevioletred;
 }
-
-button {
-    background-color: pink;
-    border: 2px solid palevioletred;
-    border-radius: 5px;
-    min-height: 30px;
-}
 </style>

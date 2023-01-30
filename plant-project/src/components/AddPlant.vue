@@ -117,10 +117,6 @@ export default {
 </template>
 
 <style scoped>
-h2 {
-  color: rebeccapurple;
-}
-
 .formContent {
   /* width: 50vh; */
   background-color: beige;
@@ -128,12 +124,5 @@ h2 {
 
 label {
   color: black;
-}
-
-button {
-  background-color: pink;
-  border: 2px solid palevioletred;
-  border-radius: 5px;
-  min-height: 30px;
 }
 </style>
