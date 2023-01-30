@@ -42,9 +42,9 @@ export default {
 
     //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
     //setta i campi ricevuti per inviarli poi a PlantDetail
-    function processaRicezioneDaPlantList(specieRicevuta, varietaRicevuta) {
-      piantaInviataAPlantDetail.value.specie = specieRicevuta;
-      piantaInviataAPlantDetail.value.varieta = varietaRicevuta;
+    function processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
+      piantaInviataAPlantDetail.value.specie = piantaRicevutadaPlantList.specie;
+      piantaInviataAPlantDetail.value.varieta = piantaRicevutadaPlantList.varieta;
       showPlantList.value = false;
 
       // dettaglio.value = { specie: specieRicevuta, varieta: varietaRicevuta };
@@ -98,8 +98,7 @@ export default {
       <PlantsList v-if="showPlantList" :piantaInseritaInFormAddPlant="piantaInviataAPlantlist"
         @showDetails="processaRicezioneDaPlantList" />
 
-      <PlantDetail v-else @showList="showPlantList = true" :specieDettaglio="piantaInviataAPlantDetail.specie"
-        :varietaDettaglio="piantaInviataAPlantDetail.varieta" />
+      <PlantDetail v-else @showList="showPlantList = true" :piantaRicevutaDaAddPlant="piantaInviataAPlantDetail" />
     </div>
   </div>
 

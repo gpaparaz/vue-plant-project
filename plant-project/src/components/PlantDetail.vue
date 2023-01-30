@@ -2,28 +2,25 @@
 import { ref, watch, computed } from 'vue'
 
 export default {
-    // props: { dettaglioChild: Object },
 
-    props: ['specieDettaglio', 'varietaDettaglio'],
+    props: {
+        piantaRicevutaDaAddPlant: { type: Object }
+    },
 
     emits: ['showList'],
 
     mounted() {
-        // console.log('mounted - props che sto ricevendo: ' + this.specieDettaglio);
-        // specie.value = this.specieDettaglio;
         this.costruisciPiantaRicevuta;
     },
     methods: {
         costruisciPiantaRicevuta() {
-            if (this.specieDettaglio !== '' && this.specieDettaglio !== undefined) {
-                this.specie = this.specieDettaglio;
+            if (this.piantaRicevutaDaAddPlant !== '' && this.piantaRicevutaDaAddPlant !== undefined) {
+                this.specie = this.piantaRicevutaDaAddPlant.specie;
             }
         }
     },
 
     setup(props, context) {
-
-        // let piantaRicevuta = dettaglioChild;
 
         function backToPlantList() {
             context.emit('showList');
@@ -36,7 +33,7 @@ export default {
         let img;
 
         const piantaRicevuta = computed(() => {
-            return props.specieDettaglio;
+            return props.piantaRicevutaDaAddPlant.specie + ' ' + props.piantaRicevutaDaAddPlant.varieta;
         })
 
         return {
