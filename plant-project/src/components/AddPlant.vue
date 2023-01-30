@@ -5,71 +5,60 @@ import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import PlantsList from '../views/PlantsList.vue'
 import PlantDetail from './PlantDetail.vue'
+import { Plant } from '../objects/plant'
 
 export default {
 
   setup(props, context) {
-    function openForm() {
-      console.log("form aperto");
-    }
 
-    const display = ref(false);
+    const showDialog = ref(false);
     const openBasic = () => {
-      display.value = true;
+      showDialog.value = true;
     };
 
-    const specie = ref("");
-    const varieta = ref("");
-    const quantita = ref("");
+    const piantaPerDialog = ref({ specie: '', varieta: '', quantita: '' });
 
-    const parentVarieta = ref('')
-    const parentSpecie = ref('')
-    const parentQuantita = ref('')
+    const piantaInviataAPlantlist = ref({ specie: '', varieta: '', quantita: '' });
+
+    const piantaInviataAPlantDetail = ref({ specie: '', varieta: '', quantita: '' });
 
     function submit() {
-      display.value = false;
-      parentSpecie.value = specie.value;
-      parentVarieta.value = varieta.value;
-      parentQuantita.value = quantita.value;
+      showDialog.value = false;
+
+      //setto i valori inseriti nel form e che devo inviare a PlantList
+      piantaInviataAPlantlist.value.specie = piantaPerDialog.value.specie;
+      piantaInviataAPlantlist.value.varieta = piantaPerDialog.value.varieta;
+      piantaInviataAPlantlist.value.quantita = piantaPerDialog.value.quantita;
 
       // faccio pulizia dei miei input text perchè altrimenti quando riapro la dialog trovo gli stessi dati di prima
-      specie.value = null;
-      varieta.value = null;
-      quantita.value = null;
+      piantaPerDialog.value.specie = null;
+      piantaPerDialog.value.varieta = null;
+      piantaPerDialog.value.quantita = null;
     }
 
     const showPlantList = ref(true)
 
-    let speciePerDettaglio = ref('')
-    let varietaPerDettaglio = ref('')
     // let dettaglio = ref({ id: '', specie: '', varieta: '' });
 
     //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
     //setta i campi ricevuti per inviarli poi a PlantDetail
     function processaRicezioneDaPlantList(specieRicevuta, varietaRicevuta) {
-      speciePerDettaglio.value = specieRicevuta;
-      varietaPerDettaglio.value = varietaRicevuta;
-      if (speciePerDettaglio !== undefined && speciePerDettaglio !== '')
-        showPlantList.value = false;
+      piantaInviataAPlantDetail.value.specie = specieRicevuta;
+      piantaInviataAPlantDetail.value.varieta = varietaRicevuta;
+      showPlantList.value = false;
 
       // dettaglio.value = { specie: specieRicevuta, varieta: varietaRicevuta };
-      console.log('che cosa sto inviando? specie: ' + speciePerDettaglio + ' varietà: ' + varietaPerDettaglio)
     }
 
     return {
-      openForm,
-      display,
+      showDialog,
       openBasic,
       submit,
-      specie,
-      varieta,
-      quantita,
-      parentQuantita,
-      parentSpecie,
-      parentVarieta,
+      piantaPerDialog,
+      piantaInviataAPlantlist,
       showPlantList,
       processaRicezioneDaPlantList,
-      speciePerDettaglio, varietaPerDettaglio
+      piantaInviataAPlantDetail
     }
   },
   components: { PlantsList, PlantDetail }
@@ -87,18 +76,18 @@ export default {
       <button label="Show" icon="pi pi-external-link" @click="openBasic">Open dialog</button>
 
 
-      <Dialog header="Header" v-model:visible="display" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+      <Dialog header="Header" v-model:visible="showDialog" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
         :style="{ width: '50vw' }">
         <div class="formContent flex flex-column p-6 border-round-xl">
           <h2>Inserisci la tua pianta</h2>
           <label class="py-1" for="speie">Specie</label>
-          <InputText id="specie" type="text" v-model="specie" />
+          <InputText id="specie" type="text" v-model="piantaPerDialog.specie" />
           <br>
           <label class="py-1" for="speie">Varietà</label>
-          <InputText id="varieta" type="text" v-model="varieta" />
+          <InputText id="varieta" type="text" v-model="piantaPerDialog.varieta" />
           <br>
           <label class="py-1" for="speie">Quantità</label>
-          <InputText id="quantita" type="text" v-model="quantita" />
+          <InputText id="quantita" type="text" v-model="piantaPerDialog.quantita" />
           <br>
           <button @click="submit">Submit</button>
         </div>
@@ -106,11 +95,12 @@ export default {
     </div>
 
     <div class="col-6">
-      <PlantsList v-if="showPlantList" :plantVarieta="parentVarieta" :plantSpecie="parentSpecie"
-        :plantQuantita="parentQuantita" @showDetails="processaRicezioneDaPlantList" />
+      <PlantsList v-if="showPlantList" :plantVarieta="piantaInviataAPlantlist.varieta"
+        :plantSpecie="piantaInviataAPlantlist.specie" :plantQuantita="piantaInviataAPlantlist.quantita"
+        @showDetails="processaRicezioneDaPlantList" />
 
-      <PlantDetail v-else @showList="showPlantList = true" :specieDettaglio="speciePerDettaglio"
-        :varietaDettaglio="varietaPerDettaglio" />
+      <PlantDetail v-else @showList="showPlantList = true" :specieDettaglio="piantaInviataAPlantDetail.specie"
+        :varietaDettaglio="piantaInviataAPlantDetail.varieta" />
     </div>
   </div>
 
