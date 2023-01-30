@@ -95,8 +95,7 @@ export default {
     </div>
 
     <div class="col-6">
-      <PlantsList v-if="showPlantList" :plantVarieta="piantaInviataAPlantlist.varieta"
-        :plantSpecie="piantaInviataAPlantlist.specie" :plantQuantita="piantaInviataAPlantlist.quantita"
+      <PlantsList v-if="showPlantList" :piantaInseritaInFormAddPlant="piantaInviataAPlantlist"
         @showDetails="processaRicezioneDaPlantList" />
 
       <PlantDetail v-else @showList="showPlantList = true" :specieDettaglio="piantaInviataAPlantDetail.specie"
