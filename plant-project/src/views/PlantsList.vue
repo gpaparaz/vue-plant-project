@@ -2,6 +2,7 @@
 
 import { ref, computed, watch } from 'vue';
 import InputText from 'primevue/inputtext';
+import { Plant } from '../objects/plant';
 
 let id = 0;
 
@@ -17,23 +18,16 @@ export default {
         let notFilteredData = []
 
         let dataToShow = ref([
-            {
-                id: id++, specie: 'Magnolia', varieta: 'Bianca', quantita: 3
-            },
-            {
-                id: id++, specie: 'Glicine', varieta: 'Rosa', quantita: 2
-            },
-            {
-                id: id++, specie: 'Glicine', varieta: 'Viola', quantita: 4
-            },
-            {
-                id: id++, specie: 'Edera', varieta: 'Canadese', quantita: 2
-            }
+            new Plant(id++, 'Magnolia', 'Bianca', 3),
+            new Plant(id++, 'Glicine', 'Rosa', 2),
+            new Plant(id++, 'Glicine', 'Viola', 4),
+            new Plant(id++, 'Edera', 'Canadese', 2)
         ])
 
         watch(props, (newValue) => {
             if (newValue.plantSpecie !== '') {
-                dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
+                // dataToShow.value.push({ id: id++, specie: props.plantSpecie, varieta: props.plantVarieta, quantita: props.plantQuantita });
+                dataToShow.value.push(new Plant(id++, props.plantSpecie, props.plantVarieta, props.plantQuantita));
                 notFilteredData = dataToShow;
             }
         })

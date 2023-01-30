@@ -6,8 +6,6 @@ import AddPlant from './components/AddPlant.vue'
 <template>
   <header>
     <div class="wrapper">
-
-
       <nav class="grid align-items-center pl-4">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
