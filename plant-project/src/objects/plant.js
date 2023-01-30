@@ -1,4 +1,4 @@
-class Plant {
+export class Plant {
     id;
     specie;
     quantita;
@@ -11,5 +11,3 @@ class Plant {
         this.quantita = quantita
     }
 }
-
-export { Plant }
