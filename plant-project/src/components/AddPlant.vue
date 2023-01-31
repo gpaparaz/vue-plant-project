@@ -38,13 +38,12 @@ export default {
 
     const showPlantList = ref(true)
 
-    // let dettaglio = ref({ id: '', specie: '', varieta: '' });
-
     //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
     //setta i campi ricevuti per inviarli poi a PlantDetail
     function processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
       piantaInviataAPlantDetail.value.specie = piantaRicevutadaPlantList.specie;
       piantaInviataAPlantDetail.value.varieta = piantaRicevutadaPlantList.varieta;
+      piantaInviataAPlantDetail.value.quantita = piantaRicevutadaPlantList.quantita
       piantaInviataAPlantDetail.value.img = piantaRicevutadaPlantList.image
       showPlantList.value = false;
 

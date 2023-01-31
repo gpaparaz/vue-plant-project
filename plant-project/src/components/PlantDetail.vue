@@ -9,39 +9,18 @@ export default {
 
     emits: ['showList'],
 
-    mounted() {
-        this.costruisciPiantaRicevuta;
-    },
-    methods: {
-        costruisciPiantaRicevuta() {
-            if (this.piantaRicevutaDaAddPlant !== '' && this.piantaRicevutaDaAddPlant !== undefined) {
-                this.specie = this.piantaRicevutaDaAddPlant.specie;
-            }
-        }
-    },
-
     setup(props, context) {
 
         function backToPlantList() {
             context.emit('showList');
         }
 
-        //dati da stampare a video
-        let specie = ref('');
-        let varieta = ref('');
-        let quantita = ref('');
-        let img = ref('');
-
         const piantaRicevuta = computed(() => {
-            specie.value = props.piantaRicevutaDaAddPlant.specie;
-            varieta.value = props.piantaRicevutaDaAddPlant.varieta;
-            quantita.value = props.piantaRicevutaDaAddPlant.quantita;
-            img.value = props.piantaRicevutaDaAddPlant.img;
-            return props.piantaRicevutaDaAddPlant.specie + ' ' + props.piantaRicevutaDaAddPlant.varieta;
+            return props.piantaRicevutaDaAddPlant;
         })
 
         return {
-            backToPlantList, piantaRicevuta, specie, varieta, quantita, img
+            backToPlantList, piantaRicevuta
         }
     }
 }
@@ -50,10 +29,30 @@ export default {
 <template>
     <button @click="backToPlantList">Back</button>
     <h3>Plant details</h3>
-    <p>Specie arrivata: {{ piantaRicevuta }}</p>
     <h3>Scheda tecnica:</h3>
     <div>
-        <img :src="img" />
+        <img :src="piantaRicevutaDaAddPlant.img" class="pb-2" />
+        <div class="grid">
+            <div class="col-6"><span class="col-sx">Specie: </span></div>
+            <div class="col-6"><span>{{ piantaRicevutaDaAddPlant.specie }}</span></div>
+
+            <div class="col-6"><span class="col-sx">Varietà: </span></div>
+            <div class="col-6"><span>{{ piantaRicevutaDaAddPlant.varieta }}</span></div>
+
+            <div class="col-6"><span class="col-sx">Quantità: </span></div>
+            <div class="col-6"><span>{{ piantaRicevutaDaAddPlant.quantita }}</span></div>
+        </div>
     </div>
 
 </template>
+
+<style>
+img {
+    width: 400px;
+    height: auto;
+}
+
+.col-sx {
+    font-weight: bold;
+}
+</style>
