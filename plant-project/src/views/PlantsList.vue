@@ -1,6 +1,6 @@
 <script>
 
-import { ref, computed, watch } from 'vue';
+import { ref, watch } from 'vue';
 import InputText from 'primevue/inputtext';
 import { Plant } from '../objects/plant';
 import { collectionData } from '../objects/datagenerator'
@@ -10,8 +10,6 @@ export default {
         piantaInseritaInFormAddPlant: { type: Object }
     },
 
-    emits: ['showDetails'],
-
     methods: {
         search() {
             this.notFilteredData = this.dataToShow;
@@ -20,10 +18,15 @@ export default {
 
         reset() {
             this.dataToShow = this.notFilteredData;
+        },
+
+        //prendi i campi nel row ed inviali al parent AddPlant
+        showPlantDetailPage(emitPianta) {
+            this.emitter.emit('showDetails', emitPianta);
         }
     },
 
-    setup(props, context) {
+    setup(props) {
 
         const searchedText = ref('')
 
@@ -39,13 +42,8 @@ export default {
             }
         })
 
-        //prendi i campi nel row ed inviali al parent AddPlant
-        function showPlantDetailPage(emitPianta) {
-            context.emit('showDetails', emitPianta);
-        }
-
         return {
-            dataToShow, searchedText, showPlantDetailPage
+            dataToShow, searchedText
         }
 
     }

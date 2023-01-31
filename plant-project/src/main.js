@@ -8,9 +8,14 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
 
+import mitt from 'mitt'
+
 import './assets/main.css'
 
+const emitter = mitt()
 const app = createApp(App)
+
+app.config.globalProperties.emitter = emitter
 
 app.use(router)
 app.use(PrimeVue)

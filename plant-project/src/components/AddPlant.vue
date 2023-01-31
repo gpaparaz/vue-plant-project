@@ -1,6 +1,6 @@
 <script>
 
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import PlantsList from '../views/PlantsList.vue'
@@ -8,7 +8,23 @@ import PlantDetail from './PlantDetail.vue'
 
 export default {
 
+  created() {
+    this.emitter.on('showDetails', (value) => {
+      this.processaRicezioneDaPlantList(value);
+    })
+  },
+
   methods: {
+    //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
+    //setta i campi ricevuti per inviarli poi a PlantDetail
+    processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
+      this.piantaInviataAPlantDetail.specie = piantaRicevutadaPlantList.specie;
+      this.piantaInviataAPlantDetail.varieta = piantaRicevutadaPlantList.varieta;
+      this.piantaInviataAPlantDetail.quantita = piantaRicevutadaPlantList.quantita
+      this.piantaInviataAPlantDetail.img = piantaRicevutadaPlantList.image
+      this.showPlantList = false;
+    },
+
     submit() {
       this.showDialog = false;
 
@@ -23,22 +39,12 @@ export default {
       this.piantaPerDialog.quantita = null;
     },
 
-    //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
-    //setta i campi ricevuti per inviarli poi a PlantDetail
-    processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
-      this.piantaInviataAPlantDetail.specie = piantaRicevutadaPlantList.specie;
-      this.piantaInviataAPlantDetail.varieta = piantaRicevutadaPlantList.varieta;
-      this.piantaInviataAPlantDetail.quantita = piantaRicevutadaPlantList.quantita
-      this.piantaInviataAPlantDetail.img = piantaRicevutadaPlantList.image
-      this.showPlantList = false;
-    },
-
     openBasic() {
       this.showDialog = true;
     }
   },
 
-  setup(props, context) {
+  setup() {
 
     const showDialog = ref(false);
 
@@ -50,7 +56,6 @@ export default {
 
     const showPlantList = ref(true)
 
-
     return {
       showDialog,
       piantaPerDialog,
@@ -59,6 +64,7 @@ export default {
       piantaInviataAPlantDetail
     }
   },
+
   components: { PlantsList, PlantDetail }
 }
 
@@ -93,8 +99,7 @@ export default {
     </div>
 
     <div class="col-6">
-      <PlantsList v-if="showPlantList" :piantaInseritaInFormAddPlant="piantaInviataAPlantlist"
-        @showDetails="processaRicezioneDaPlantList" />
+      <PlantsList v-if="showPlantList" :piantaInseritaInFormAddPlant="piantaInviataAPlantlist" />
 
       <PlantDetail v-else @showList="showPlantList = true" :piantaRicevutaDaAddPlant="piantaInviataAPlantDetail" />
     </div>

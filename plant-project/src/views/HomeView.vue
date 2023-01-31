@@ -1,5 +1,20 @@
-<script setup>
+<script>
 import AddPlant from '../components/AddPlant.vue';
+
+export default {
+
+  created() {
+    this.emitter.on('showDetails', (value) => {
+      console.log('homeview ha intercettato l evento ' + value.specie)
+    })
+  },
+
+  setup() {
+
+  },
+  components: { AddPlant }
+}
+
 </script>
 
 <template>
