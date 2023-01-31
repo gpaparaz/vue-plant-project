@@ -63,22 +63,20 @@ export default {
     </div>
 
     <p>Lista piante presenti a database: </p>
-    <table>
-        <tr>
-            <th>Specie</th>
-            <th>Varietà</th>
-            <th>Quantità</th>
-            <th>Azione</th>
-        </tr>
-        <template v-for="item in dataToShow">
-            <tr>
-                <td>{{ item.specie }}</td>
-                <td>{{ item.varieta }}</td>
-                <td>{{ item.quantita }}</td>
-                <td><button @click="showPlantDetailPage(item)">Dettagli</button></td>
-            </tr>
-        </template>
-    </table>
+
+    <DataTable :value="dataToShow" responsiveLayout="scroll">
+        <Column field="specie" header="Specie"></Column>
+        <Column field="varieta" header="Varietà"></Column>
+        <Column field="quantita" header="Quantità"></Column>
+        <Column header="Azione">
+            <template #body="slotProps">
+                <button @click="showPlantDetailPage(slotProps.data)" type="button" icon="pi pi-search"
+                    class="p-button-success" style="margin-right: .5em">Dettagli
+
+                </button>
+            </template>
+        </Column>
+    </DataTable>
 
 </template>
 
