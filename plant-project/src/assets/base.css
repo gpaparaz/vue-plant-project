@@ -9,3 +9,37 @@ a {
   color: pink;
   padding: 0em 0.5em;
 }
+
+h2 {
+  color: rebeccapurple;
+}
+
+.p-button {
+  background: pink;
+  border: 2px solid palevioletred;
+  color: black;
+}
+
+.p-button:enabled:hover {
+  background: palevioletred;
+  border-color: palevioletred;
+  color: black;
+}
+
+.p-button.p-button-outlined {
+  color: pink;
+}
+
+.p-button.p-button-outlined:enabled:hover {
+  background: rgb(245 134 232 / 4%);
+  border-color: palevioletred;
+  color: pink;
+}
+
+.p-datatable-responsive-scroll>.p-datatable-wrapper {
+  border-radius: 10px;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+  background: mistyrose;
+}

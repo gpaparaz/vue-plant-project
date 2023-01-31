@@ -67,11 +67,11 @@ export default {
 <template>
   <h2>This is AddPlant vue page</h2>
 
-  <div class="grid">
-    <div class="col-6">
+  <div class="grid mx-3">
+    <div class="col-4">
       <p>Add plant:</p>
 
-      <button label="Show" icon="pi pi-external-link" @click="openBasic">Open dialog</button>
+      <Button label="Apri form" icon="pi pi-external-link" @click="openBasic"></Button>
 
 
       <Dialog header="Header" v-model:visible="showDialog" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
@@ -87,7 +87,7 @@ export default {
           <label class="py-1" for="speie">Quantità</label>
           <InputText id="quantita" type="text" v-model="piantaPerDialog.quantita" />
           <br>
-          <button @click="submit">Submit</button>
+          <Button label="Submit" @click="submit"></Button>
         </div>
       </Dialog>
     </div>

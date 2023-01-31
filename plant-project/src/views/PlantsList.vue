@@ -53,11 +53,12 @@ export default {
 </script>
 
 <template>
-    <div class="grid p-fluid">
-        <div class="col-12 md:col-4">
-            <div class="p-inputgroup flex">
+    <div class="grid">
+        <div class="w-full">
+            <div class="flex flex-row ">
                 <InputText id="searchedText" placeholder="cerca" v-model="searchedText" />
-                <button @click="search">Cerca</button> <button @click="reset">Reset</button>
+                <Button class="mx-2" icon="pi pi-search" label="Cerca" @click="search"></Button>
+                <Button class="mx-2 p-button-outlined" label="Reset" @click="reset"></Button>
             </div>
         </div>
     </div>
@@ -70,9 +71,7 @@ export default {
         <Column field="quantita" header="Quantità"></Column>
         <Column header="Azione">
             <template #body="slotProps">
-                <button @click="showPlantDetailPage(slotProps.data)" type="button" icon="pi pi-search"
-                    class="p-button-success" style="margin-right: .5em">Dettagli
-                </button>
+                <Button @click="showPlantDetailPage(slotProps.data)" type="button" label="Dettagli"></Button>
             </template>
         </Column>
     </DataTable>
@@ -80,20 +79,5 @@ export default {
 </template>
 
 <style scoped>
-table {
-    border-collapse: collapse;
-}
 
-table th {
-    border-bottom: 1px solid palevioletred;
-    background-color: pink;
-    color: black;
-}
-
-table th,
-td {
-    padding: 1em;
-    border-left: 1px solid palevioletred;
-    border-right: 1px solid palevioletred;
-}
 </style>

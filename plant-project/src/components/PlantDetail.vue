@@ -35,8 +35,8 @@ export default {
 </script>
 
 <template>
-    <button @click="backToPlantList">Back</button>
-    <h3>Plant details</h3>
+    <Button label="Back" @click="backToPlantList"></Button>
+    <h2>Plant details</h2>
     <h3>Scheda tecnica:</h3>
     <div>
         <img :src="piantaRicevutaDaAddPlant.img" class="pb-2" />
