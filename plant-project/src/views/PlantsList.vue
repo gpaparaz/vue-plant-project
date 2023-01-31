@@ -14,12 +14,12 @@ export default {
 
     methods: {
         search() {
-            notFilteredData = dataToShow.value;
-            dataToShow.value = dataToShow.value.filter(val => val.specie.includes(searchedText.value));
+            this.notFilteredData = this.dataToShow;
+            this.dataToShow = this.dataToShow.filter(val => val.specie.includes(searchedText.value));
         },
 
         reset() {
-            dataToShow.value = notFilteredData;
+            this.dataToShow = this.notFilteredData;
         }
     },
 
@@ -72,7 +72,6 @@ export default {
             <template #body="slotProps">
                 <button @click="showPlantDetailPage(slotProps.data)" type="button" icon="pi pi-search"
                     class="p-button-success" style="margin-right: .5em">Dettagli
-
                 </button>
             </template>
         </Column>
