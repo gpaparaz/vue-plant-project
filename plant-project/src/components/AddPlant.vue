@@ -16,11 +16,11 @@ export default {
       showDialog.value = true;
     };
 
-    const piantaPerDialog = ref({ specie: '', varieta: '', quantita: '' });
+    const piantaPerDialog = ref({ specie: '', varieta: '', quantita: '', img: '' });
 
-    const piantaInviataAPlantlist = ref({ specie: '', varieta: '', quantita: '' });
+    const piantaInviataAPlantlist = ref({ specie: '', varieta: '', quantita: '', img: '' });
 
-    const piantaInviataAPlantDetail = ref({ specie: '', varieta: '', quantita: '' });
+    const piantaInviataAPlantDetail = ref({ specie: '', varieta: '', quantita: '', img: '' });
 
     function submit() {
       showDialog.value = false;
@@ -45,6 +45,7 @@ export default {
     function processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
       piantaInviataAPlantDetail.value.specie = piantaRicevutadaPlantList.specie;
       piantaInviataAPlantDetail.value.varieta = piantaRicevutadaPlantList.varieta;
+      piantaInviataAPlantDetail.value.img = piantaRicevutadaPlantList.image
       showPlantList.value = false;
 
       // dettaglio.value = { specie: specieRicevuta, varieta: varietaRicevuta };

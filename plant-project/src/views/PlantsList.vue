@@ -23,7 +23,7 @@ export default {
         watch(props, (newValue) => {
             if (newValue.piantaInseritaInFormAddPlant.specie !== '') {
                 let id = dataToShow.value.length;
-                dataToShow.value.push(new Plant(id, props.piantaInseritaInFormAddPlant.specie, props.piantaInseritaInFormAddPlant.varieta, props.piantaInseritaInFormAddPlant.quantita));
+                dataToShow.value.push(new Plant(id, props.piantaInseritaInFormAddPlant.specie, props.piantaInseritaInFormAddPlant.varieta, props.piantaInseritaInFormAddPlant.quantita, props.piantaInseritaInFormAddPlant.img));
                 notFilteredData = dataToShow;
             }
         })
