@@ -12,6 +12,17 @@ export default {
 
     emits: ['showDetails'],
 
+    methods: {
+        search() {
+            notFilteredData = dataToShow.value;
+            dataToShow.value = dataToShow.value.filter(val => val.specie.includes(searchedText.value));
+        },
+
+        reset() {
+            dataToShow.value = notFilteredData;
+        }
+    },
+
     setup(props, context) {
 
         const searchedText = ref('')
@@ -28,22 +39,13 @@ export default {
             }
         })
 
-        function search() {
-            notFilteredData = dataToShow.value;
-            dataToShow.value = dataToShow.value.filter(val => val.specie.includes(searchedText.value));
-        }
-
-        function reset() {
-            dataToShow.value = notFilteredData;
-        }
-
         //prendi i campi nel row ed inviali al parent AddPlant
         function showPlantDetailPage(emitPianta) {
             context.emit('showDetails', emitPianta);
         }
 
         return {
-            dataToShow, searchedText, search, reset, showPlantDetailPage
+            dataToShow, searchedText, showPlantDetailPage
         }
 
     }

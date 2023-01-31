@@ -7,6 +7,18 @@ export default {
         piantaRicevutaDaAddPlant: { type: Object }
     },
 
+    computed: {
+        piantaRicevuta() {
+            return props.piantaRicevutaDaAddPlant;
+        }
+    },
+
+    methods: {
+        backToPlantList() {
+            context.emit('showList');
+        }
+    },
+
     emits: ['showList'],
 
     setup(props, context) {
@@ -15,12 +27,8 @@ export default {
             context.emit('showList');
         }
 
-        const piantaRicevuta = computed(() => {
-            return props.piantaRicevutaDaAddPlant;
-        })
-
         return {
-            backToPlantList, piantaRicevuta
+            backToPlantList
         }
     }
 }

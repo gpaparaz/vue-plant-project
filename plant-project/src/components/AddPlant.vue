@@ -5,16 +5,42 @@ import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import PlantsList from '../views/PlantsList.vue'
 import PlantDetail from './PlantDetail.vue'
-import { Plant } from '../objects/plant'
 
 export default {
+
+  methods: {
+    submit() {
+      this.showDialog = false;
+
+      //setto i valori inseriti nel form e che devo inviare a PlantList
+      this.piantaInviataAPlantlist.specie = this.piantaPerDialog.specie;
+      this.piantaInviataAPlantlist.varieta = this.piantaPerDialog.varieta;
+      this.piantaInviataAPlantlist.quantita = this.piantaPerDialog.quantita;
+
+      // faccio pulizia dei miei input text perchè altrimenti quando riapro la dialog trovo gli stessi dati di prima
+      this.piantaPerDialog.specie = null;
+      this.piantaPerDialog.varieta = null;
+      this.piantaPerDialog.quantita = null;
+    },
+
+    //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
+    //setta i campi ricevuti per inviarli poi a PlantDetail
+    processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
+      this.piantaInviataAPlantDetail.specie = piantaRicevutadaPlantList.specie;
+      this.piantaInviataAPlantDetail.varieta = piantaRicevutadaPlantList.varieta;
+      this.piantaInviataAPlantDetail.quantita = piantaRicevutadaPlantList.quantita
+      this.piantaInviataAPlantDetail.img = piantaRicevutadaPlantList.image
+      this.showPlantList = false;
+    },
+
+    openBasic() {
+      this.showDialog = true;
+    }
+  },
 
   setup(props, context) {
 
     const showDialog = ref(false);
-    const openBasic = () => {
-      showDialog.value = true;
-    };
 
     const piantaPerDialog = ref({ specie: '', varieta: '', quantita: '', img: '' });
 
@@ -22,42 +48,14 @@ export default {
 
     const piantaInviataAPlantDetail = ref({ specie: '', varieta: '', quantita: '', img: '' });
 
-    function submit() {
-      showDialog.value = false;
-
-      //setto i valori inseriti nel form e che devo inviare a PlantList
-      piantaInviataAPlantlist.value.specie = piantaPerDialog.value.specie;
-      piantaInviataAPlantlist.value.varieta = piantaPerDialog.value.varieta;
-      piantaInviataAPlantlist.value.quantita = piantaPerDialog.value.quantita;
-
-      // faccio pulizia dei miei input text perchè altrimenti quando riapro la dialog trovo gli stessi dati di prima
-      piantaPerDialog.value.specie = null;
-      piantaPerDialog.value.varieta = null;
-      piantaPerDialog.value.quantita = null;
-    }
-
     const showPlantList = ref(true)
 
-    //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
-    //setta i campi ricevuti per inviarli poi a PlantDetail
-    function processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
-      piantaInviataAPlantDetail.value.specie = piantaRicevutadaPlantList.specie;
-      piantaInviataAPlantDetail.value.varieta = piantaRicevutadaPlantList.varieta;
-      piantaInviataAPlantDetail.value.quantita = piantaRicevutadaPlantList.quantita
-      piantaInviataAPlantDetail.value.img = piantaRicevutadaPlantList.image
-      showPlantList.value = false;
-
-      // dettaglio.value = { specie: specieRicevuta, varieta: varietaRicevuta };
-    }
 
     return {
       showDialog,
-      openBasic,
-      submit,
       piantaPerDialog,
       piantaInviataAPlantlist,
       showPlantList,
-      processaRicezioneDaPlantList,
       piantaInviataAPlantDetail
     }
   },
