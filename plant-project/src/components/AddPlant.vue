@@ -15,11 +15,13 @@ export default {
       this.piantaInviataAPlantlist.specie = this.piantaPerDialog.specie;
       this.piantaInviataAPlantlist.varieta = this.piantaPerDialog.varieta;
       this.piantaInviataAPlantlist.quantita = this.piantaPerDialog.quantita;
+      this.piantaInviataAPlantlist.img = this.piantaPerDialog.img
 
       // faccio pulizia dei miei input text perchè altrimenti quando riapro la dialog trovo gli stessi dati di prima
       this.piantaPerDialog.specie = null;
       this.piantaPerDialog.varieta = null;
       this.piantaPerDialog.quantita = null;
+      this.piantaPerDialog.img = null;
     },
 
     openBasic() {
@@ -68,6 +70,9 @@ export default {
           <br>
           <label class="py-1" for="speie">Quantità</label>
           <InputText id="quantita" type="text" v-model="piantaPerDialog.quantita" />
+          <br>
+          <label class="py-1" for="speie">Link Immagine</label>
+          <InputText id="quantita" type="text" v-model="piantaPerDialog.img" />
           <br>
           <Button label="Submit" @click="submit"></Button>
         </div>
