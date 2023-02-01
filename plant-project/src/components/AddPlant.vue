@@ -4,27 +4,10 @@ import { ref, onMounted } from 'vue'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import PlantsList from '../views/PlantsList.vue'
-import PlantDetail from './PlantDetail.vue'
 
 export default {
 
-  created() {
-    this.emitter.on('showDetails', (value) => {
-      this.processaRicezioneDaPlantList(value);
-    })
-  },
-
   methods: {
-    //ricevi i dati del row da PlantList, nascondi la view di PlantList e rendi visibile quella di PlantDetail
-    //setta i campi ricevuti per inviarli poi a PlantDetail
-    processaRicezioneDaPlantList(piantaRicevutadaPlantList) {
-      this.piantaInviataAPlantDetail.specie = piantaRicevutadaPlantList.specie;
-      this.piantaInviataAPlantDetail.varieta = piantaRicevutadaPlantList.varieta;
-      this.piantaInviataAPlantDetail.quantita = piantaRicevutadaPlantList.quantita
-      this.piantaInviataAPlantDetail.img = piantaRicevutadaPlantList.image
-      this.showPlantList = false;
-    },
-
     submit() {
       this.showDialog = false;
 
@@ -48,24 +31,18 @@ export default {
 
     const showDialog = ref(false);
 
-    const piantaPerDialog = ref({ specie: '', varieta: '', quantita: '', img: '' });
+    const piantaPerDialog = ref({ specie: '', varieta: '', quantita: '', img: '' })
 
-    const piantaInviataAPlantlist = ref({ specie: '', varieta: '', quantita: '', img: '' });
-
-    const piantaInviataAPlantDetail = ref({ specie: '', varieta: '', quantita: '', img: '' });
-
-    const showPlantList = ref(true)
+    const piantaInviataAPlantlist = ref({ specie: '', varieta: '', quantita: '', img: '' })
 
     return {
       showDialog,
       piantaPerDialog,
-      piantaInviataAPlantlist,
-      showPlantList,
-      piantaInviataAPlantDetail
+      piantaInviataAPlantlist
     }
   },
 
-  components: { PlantsList, PlantDetail }
+  components: { PlantsList }
 }
 
 </script>
@@ -79,10 +56,9 @@ export default {
 
       <Button label="Apri form" icon="pi pi-external-link" @click="openBasic"></Button>
 
-
       <Dialog header="Header" v-model:visible="showDialog" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
         :style="{ width: '50vw' }">
-        <div class="formContent flex flex-column p-6 border-round-xl">
+        <div class="flex flex-column p-3 border-round-xl">
           <h2>Inserisci la tua pianta</h2>
           <label class="py-1" for="speie">Specie</label>
           <InputText id="specie" type="text" v-model="piantaPerDialog.specie" />
@@ -99,20 +75,13 @@ export default {
     </div>
 
     <div class="col-6">
-      <PlantsList v-if="showPlantList" :piantaInseritaInFormAddPlant="piantaInviataAPlantlist" />
-
-      <PlantDetail v-else @showList="showPlantList = true" :piantaRicevutaDaAddPlant="piantaInviataAPlantDetail" />
+      <PlantsList :piantaInseritaInFormAddPlant="piantaInviataAPlantlist" />
     </div>
   </div>
 
 </template>
 
 <style scoped>
-.formContent {
-  /* width: 50vh; */
-  background-color: beige;
-}
-
 label {
   color: black;
 }
