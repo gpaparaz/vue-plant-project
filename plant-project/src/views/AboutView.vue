@@ -33,12 +33,13 @@ export default {
     }
 
     axios
-      // .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      // .then(response => console.log(response.data))
-
       .get('https://api.open-meteo.com/v1/forecast?latitude=45.41&longitude=11.89&hourly=temperature_2m,weathercode&start_date=' + getToday() + '&end_date=' + getToday())
-      .then(response => (this.latitude = response.data.latitude) && (this.tMax = response.data.hourly.temperature_2m[response.data.hourly.temperature_2m.length - 1]) && (this.tMin = response.data.hourly.temperature_2m[0]) && console.log(response.data))
-
+      .then(response => {
+        this.latitude = response.data.latitude;
+        this.tMax = response.data.hourly.temperature_2m[response.data.hourly.temperature_2m.length - 1];
+        this.tMin = response.data.hourly.temperature_2m[0];
+        console.log(response.data);
+      })
   }
 }
 </script>
