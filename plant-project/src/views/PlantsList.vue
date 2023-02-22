@@ -1,7 +1,5 @@
 <script>
-
 import { ref, watch } from 'vue';
-import InputText from 'primevue/inputtext';
 import { Plant } from '../objects/plant';
 import { collectionData } from '../objects/datagenerator'
 
@@ -73,9 +71,6 @@ export default {
             </template>
         </Column>
     </DataTable>
-
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
