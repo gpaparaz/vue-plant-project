@@ -1,14 +1,13 @@
-# plant-project
+# Plant-project
 
-This template should help get you started developing with Vue 3 in Vite.
+Progetto di mia fantasia realizzato in Vue.js
 
-## Recommended IDE Setup
+Librerie adottate:
+* [mitt](https://github.com/developit/mitt) per la comunicazione tra diversi child
+*  [axios](https://v2.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html?redirect=true) per l'utilizzo di API esterne
+* [open meteo](https://v2.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html?redirect=true) come fonte di API sul meteo
+* [PrimeVue](https://primevue.org/) per componenti utili
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
