@@ -7,7 +7,10 @@ export default {
     const latitude = ref('')
     const tMin = ref('')
     const tMax = ref('')
-    const meteo = ref('')
+    const meteoMattina = ref('')
+    const meteoPomeriggio = ref('')
+
+    var arrayMeteo = []
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -17,8 +20,9 @@ export default {
     today = yyyy + "-" + mm + "-" + dd;
 
     const oggi = ref(today)
+
     return {
-      latitude, tMin, tMax, oggi
+      latitude, tMin, tMax, oggi, meteoMattina, meteoPomeriggio, arrayMeteo
     }
   },
   mounted() {
@@ -38,6 +42,17 @@ export default {
         this.latitude = response.data.latitude;
         this.tMax = response.data.hourly.temperature_2m[response.data.hourly.temperature_2m.length - 1];
         this.tMin = response.data.hourly.temperature_2m[0];
+        this.arrayMeteo = response.data.hourly.weathercode;
+
+        let mattina = this.arrayMeteo.slice(0, 11)
+        let mapMattina = mattina.map((a) => mattina.filter((b) => a === b).length);
+
+        let pomeriggio = this.arrayMeteo.slice(12, 24)
+        let mapPomeriggio = pomeriggio.map((a) => pomeriggio.filter((b) => a === b).length);
+
+        this.meteoMattina = mattina[mapMattina.indexOf(Math.max.apply(null, mapMattina))]
+        this.meteoPomeriggio = pomeriggio[mapPomeriggio.indexOf(Math.max.apply(null, mapPomeriggio))]
+
         console.log(response.data);
       })
   }
@@ -50,7 +65,7 @@ export default {
     <h3>Che tempo fa a Padova?</h3>
     <p>Min: {{ tMin }} Max: {{ tMax }}</p>
     <img src="" />
-    <p>{{ oggi }}</p>
+    <p>{{ meteoMattina }} {{ meteoPomeriggio }}</p>
   </div>
 </template>
 
