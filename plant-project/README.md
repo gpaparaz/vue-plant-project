@@ -3,7 +3,7 @@
 Progetto di mia fantasia realizzato in Vue.js
 
 Librerie adottate:
-* [mitt](https://github.com/developit/mitt) per la comunicazione tra diversi child
+* [mitt](https://github.com/developit/mitt) per la comunicazione tra diversi child (event bus)
 *  [axios](https://v2.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html?redirect=true) per l'utilizzo di API esterne
 * [open meteo](https://v2.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html?redirect=true) come fonte di API sul meteo
 * [PrimeVue](https://primevue.org/) per componenti utili
