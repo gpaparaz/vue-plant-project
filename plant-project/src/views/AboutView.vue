@@ -2,13 +2,14 @@
 import axios from 'axios';
 import { ref, watch } from 'vue';
 import { codiceMeteo } from '../objects/datagenerator'
+
 export default {
   setup() {
     const latitude = ref('')
     const tMin = ref('')
     const tMax = ref('')
-    const meteoMattina = ref('')
-    const meteoPomeriggio = ref('')
+    const meteoMattina=''
+    const meteoPomeriggio = ''
 
     var arrayMeteo = []
 
@@ -19,10 +20,22 @@ export default {
 
     today = yyyy + "-" + mm + "-" + dd;
 
+    function getImmagineMeteoMattina(){
+      if(meteoMattina.value === undefined)
+        return new URL('../assets/img/' + 0 + '.png', import.meta.url).href
+      return new URL('../assets/img/' + meteoMattina.value + '.png', import.meta.url).href
+    }
+
+    function getImmmagineMeteoPomeriggio(){
+      if(meteoPomeriggio.value === undefined)
+        return new URL('../assets/img/' + 0 + '.png', import.meta.url).href
+      return new URL('../assets/img/' + meteoPomeriggio.value + '.png', import.meta.url).href
+    }
+
     const oggi = ref(today)
 
     return {
-      latitude, tMin, tMax, oggi, meteoMattina, meteoPomeriggio, arrayMeteo
+      latitude, tMin, tMax, oggi, meteoMattina, meteoPomeriggio, arrayMeteo, getImmagineMeteoMattina, getImmmagineMeteoPomeriggio
     }
   },
   mounted() {
@@ -40,8 +53,9 @@ export default {
       .get('https://api.open-meteo.com/v1/forecast?latitude=45.41&longitude=11.89&hourly=temperature_2m,weathercode&start_date=' + getToday() + '&end_date=' + getToday())
       .then(response => {
         this.latitude = response.data.latitude;
-        this.tMax = response.data.hourly.temperature_2m[response.data.hourly.temperature_2m.length - 1];
-        this.tMin = response.data.hourly.temperature_2m[0];
+        this.tMax = Math.max(...response.data.hourly.temperature_2m);
+        this.tMin = Math.min(...response.data.hourly.temperature_2m);
+        
         this.arrayMeteo = response.data.hourly.weathercode;
 
         let mattina = this.arrayMeteo.slice(0, 11)
@@ -55,8 +69,10 @@ export default {
 
         console.log(response.data);
       })
+    }
+    
   }
-}
+
 </script>
 
 <template>
@@ -64,7 +80,8 @@ export default {
     <h1>This is an about page</h1>
     <h3>Che tempo fa a Padova?</h3>
     <p>Min: {{ tMin }} Max: {{ tMax }}</p>
-    <img src="" />
+    <img :src="getImmagineMeteoMattina()"  />
+    <img :src="getImmmagineMeteoPomeriggio()" />
     <p>{{ meteoMattina }} {{ meteoPomeriggio }}</p>
   </div>
 </template>
