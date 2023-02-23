@@ -11,6 +11,9 @@ export default {
     const meteoMattina=''
     const meteoPomeriggio = ''
 
+    const imgMattina = ref('')
+    const imgPomeriggio = ref('')
+
     var arrayMeteo = []
 
     var today = new Date();
@@ -20,22 +23,10 @@ export default {
 
     today = yyyy + "-" + mm + "-" + dd;
 
-    function getImmagineMeteoMattina(){
-      if(meteoMattina.value === undefined)
-        return new URL('../assets/img/' + 0 + '.png', import.meta.url).href
-      return new URL('../assets/img/' + meteoMattina.value + '.png', import.meta.url).href
-    }
-
-    function getImmmagineMeteoPomeriggio(){
-      if(meteoPomeriggio.value === undefined)
-        return new URL('../assets/img/' + 0 + '.png', import.meta.url).href
-      return new URL('../assets/img/' + meteoPomeriggio.value + '.png', import.meta.url).href
-    }
-
     const oggi = ref(today)
 
     return {
-      latitude, tMin, tMax, oggi, meteoMattina, meteoPomeriggio, arrayMeteo, getImmagineMeteoMattina, getImmmagineMeteoPomeriggio
+      latitude, tMin, tMax, oggi, meteoMattina, meteoPomeriggio, arrayMeteo, imgMattina, imgPomeriggio
     }
   },
   mounted() {
@@ -64,8 +55,11 @@ export default {
         let pomeriggio = this.arrayMeteo.slice(12, 24)
         let mapPomeriggio = pomeriggio.map((a) => pomeriggio.filter((b) => a === b).length);
 
-        this.meteoMattina = mattina[mapMattina.indexOf(Math.max.apply(null, mapMattina))]
-        this.meteoPomeriggio = pomeriggio[mapPomeriggio.indexOf(Math.max.apply(null, mapPomeriggio))]
+        this.meteoMattina = mattina[mapMattina.indexOf(Math.max.apply(null, mapMattina))];
+        this.meteoPomeriggio = pomeriggio[mapPomeriggio.indexOf(Math.max.apply(null, mapPomeriggio))];
+
+        this.imgMattina = new URL('../assets/img/' + this.meteoMattina + '.png', import.meta.url).href
+        this.imgPomeriggio =  new URL('../assets/img/' + this.meteoPomeriggio + '.png', import.meta.url).href
 
         console.log(response.data);
       })
@@ -80,8 +74,8 @@ export default {
     <h1>This is an about page</h1>
     <h3>Che tempo fa a Padova?</h3>
     <p>Min: {{ tMin }} Max: {{ tMax }}</p>
-    <img :src="getImmagineMeteoMattina()"  />
-    <img :src="getImmmagineMeteoPomeriggio()" />
+    <img :src="imgMattina"  />
+    <img :src="imgPomeriggio" />
     <p>{{ meteoMattina }} {{ meteoPomeriggio }}</p>
   </div>
 </template>
