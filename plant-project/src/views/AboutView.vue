@@ -73,10 +73,16 @@ export default {
   <div class="about">
     <h1>This is an about page</h1>
     <h3>Che tempo fa a Padova?</h3>
-    <p>Min: {{ tMin }} Max: {{ tMax }}</p>
-    <img :src="imgMattina"  />
-    <img :src="imgPomeriggio" />
-    <p>{{ meteoMattina }} {{ meteoPomeriggio }}</p>
+    <p>TMin: {{ tMin }}° , TMax: {{ tMax }}°</p>
+    <div class="d-flex inline-flex align-items-center">
+      <p>Mattino:</p>
+      <img :src="imgMattina" />
+    </div>
+    <br>
+    <div class="d-flex inline-flex align-items-center">
+      <p>Pomeriggio:</p>
+      <img :src="imgPomeriggio" />
+    </div>
   </div>
 </template>
 
